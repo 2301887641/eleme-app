@@ -22,6 +22,7 @@
             vheader
         }
     }
+<<<<<<< HEAD
     this.$http.get('/goods').then(function (response) {
         console.log(response)
     })
@@ -31,12 +32,18 @@
   a{
     text-decoration:none;
   }
+=======
+</script>
+
+<style>
+>>>>>>> 02e8e0e0170988d9a146625f3c5822e56957a99e
   .tab{
     display: flex;
     width: 100%;
     height: 40px;
     line-height: 40px;
     border-color:red;
+<<<<<<< HEAD
     position: relative;
   }
   .tab:after{
@@ -47,6 +54,8 @@
     border-top:1px solid rgba(7,17,27,0.1);
     content: ' ';
     width:100%;
+=======
+>>>>>>> 02e8e0e0170988d9a146625f3c5822e56957a99e
   }
 
   .tab-item{
@@ -61,6 +70,7 @@
   .tab-item a.active{
     color: rgb(240, 20, 20);
   }
+<<<<<<< HEAD
    /* 缩放 */
   @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
     .border-1px::after{
@@ -76,4 +86,6 @@
     }
   }
 
+=======
+>>>>>>> 02e8e0e0170988d9a146625f3c5822e56957a99e
 </style>

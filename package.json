@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "vue": "^2.2.2",
+<<<<<<< HEAD
     "axios": "0.16.0",
+=======
+>>>>>>> 02e8e0e0170988d9a146625f3c5822e56957a99e
     "vue-router": "^2.2.0"
   },
   "devDependencies": {
