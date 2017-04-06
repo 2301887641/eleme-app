@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <vheader :seller="seller"></vheader>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -16,20 +17,32 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import vheader from './components/header/header.vue'
+  import header from '@/components/header/header'
+  // 错误状态码
+  const ERROR_OK = 0
     export default {
         components: {
-            vheader
-        }
+           vheader: header
+        },
+        data() {
+            return {
+              seller: {}
+            }
+        },
+      created() {
+            const _this = this
+        this.$http.get('/api/seller').then(function (response) {
+             if (response.data.errno === ERROR_OK) {
+              _this.seller = response.data.data
+             }
+        })
+      }
     }
-    this.$http.get('/goods').then(function (response) {
-        console.log(response)
-    })
 </script>
 <style>
-a{
-  text-decoration:none;
-}
+  a{
+    text-decoration:none;
+  }
   .tab{
     display: flex;
     width: 100%;
