@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!--将ajax获取的seller传给vheader组件-->
     <vheader :seller="seller"></vheader>
     <div class="tab border-1px">
       <div class="tab-item">
@@ -19,70 +20,76 @@
 <script type="text/ecmascript-6">
   import header from '@/components/header/header'
   // 错误状态码
-  const ERROR_OK = 0
-    export default {
-        components: {
-           vheader: header
-        },
-        data() {
-            return {
-              seller: {}
-            }
-        },
-      created() {
-            const _this = this
-        this.$http.get('/api/seller').then(function (response) {
-             if (response.data.errno === ERROR_OK) {
-              _this.seller = response.data.data
-             }
-        })
+  export default {
+    components: {
+      vheader: header
+    },
+    data() {
+      return {
+        seller: {}
       }
+    },
+    created() {
+      const _this = this
+      this.$http.get('/api/seller').then(function (response) {
+        if (response.data.errno === window.ERROR_OK) {
+          _this.seller = response.data.data
+        }
+      })
     }
+  }
 </script>
 <style>
-  a{
-    text-decoration:none;
+  /*@import "./common/style/style.css";*/
+
+  a {
+    text-decoration: none;
   }
-  .tab{
+
+  .tab {
     display: flex;
     width: 100%;
     height: 40px;
     line-height: 40px;
-    border-color:red;
+    border-color: red;
     position: relative;
   }
-  .tab:after{
-    display:block;
-    position:absolute;
-    left:0;
-    bottom:0;
-    border-top:1px solid rgba(7,17,27,0.1);
+
+  .tab:after {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top: 1px solid rgba(7, 17, 27, 0.1);
     content: ' ';
-    width:100%;
+    width: 100%;
   }
 
-  .tab-item{
+  .tab-item {
     flex: 1;
     text-align: center;
   }
-  .tab-item a{
+
+  .tab-item a {
     display: block;
     font-size: 14px;
     color: rgb(77, 85, 93);
   }
-  .tab-item a.active{
+
+  .tab-item a.active {
     color: rgb(240, 20, 20);
   }
-   /* 缩放 */
-  @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
-    .border-1px::after{
+
+  /* 缩放 */
+  @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5) {
+    .border-1px::after {
       -webkit-transform: scaleY(0.7);
       transform: scaleY(0.7);
     }
   }
 
-  @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
-    .border-1px::after{
+  @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2) {
+    .border-1px::after {
       -webkit-transform: scaleY(0.7);
       transform: scaleY(0.7);
     }

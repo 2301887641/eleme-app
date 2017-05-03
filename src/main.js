@@ -7,8 +7,8 @@ import axios from 'axios'
 // 使用axios
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
-
-Vue.config.productionTip = false
+// 错误状态码
+window.ERROR_OK = 0
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
