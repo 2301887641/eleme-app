@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+// 这里引入整体的styl样式
+import './common/stylus/index.styl'
+
 // 使用axios
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
