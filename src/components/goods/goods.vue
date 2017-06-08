@@ -1,6 +1,7 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
+    <!--在vue中可以通过给标签加ref属性，就可以在js中利用ref去引用它，从而操作该dom元素-->
+    <div class="menu-wrapper" ref="menuWrapper">
       <ul>
         <li v-for="item in goods" class="menu-item">
           <span class="text border-1px">
@@ -9,7 +10,7 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+    <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
@@ -41,6 +42,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Bscroll from 'better-scroll'
   export default {
       props: {
           seller: {
@@ -59,9 +61,16 @@
         this.$http.get('/api/goods').then(function (response) {
           if (response.data.errno === window.ERROR_OK) {
             _this.goods = response.data.data
+              _this.initScroll()
           }
         })
+      },
+    methods: {
+      initScroll() {
+        this.menuScroll = new Bscroll(this.$refs.menuWrapper, {})
+        this.foodsScroll = new Bscroll(this.$refs.foodsWrapper, {})
       }
+    }
   }
 </script>
 
