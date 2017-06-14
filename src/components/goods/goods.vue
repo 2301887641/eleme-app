@@ -4,7 +4,7 @@
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
         <!--这里需要判断currentIndex中时时返回的数字是否和goods中的下标index相等-->
-        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}">
+        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)">
           <span class="text border-1px">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
@@ -85,8 +85,20 @@
       }
     },
     methods: {
+      selectMenu(index, event) {
+        if (!event._constructed) {
+            return
+        }
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+        let el = foodList[index]
+//        滚动到指定元素
+        this.foodsScroll.scrollToElement(el, 300)
+      },
       initScroll() {
-        this.menuScroll = new Bscroll(this.$refs.menuWrapper, {})
+//          这里需要添加click:true才行,因为pc端点击事件会响应2次
+        this.menuScroll = new Bscroll(this.$refs.menuWrapper, {
+            click: true
+        })
         this.foodsScroll = new Bscroll(this.$refs.foodsWrapper, {
 //            时时检测滚动位置
             probeType: 3
