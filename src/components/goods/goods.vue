@@ -39,12 +39,13 @@
         </li>
       </ul>
     </div>
-
+    <Shopcart></Shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Bscroll from 'better-scroll'
+  import Shopcart from '@/components/shopcart/shopcart.vue'
   export default {
       props: {
           seller: {
@@ -57,6 +58,9 @@
             listHeight: [],
             scrollY: 0
         }
+      },
+      components: {
+          Shopcart
       },
       created() {
         //        定义一个数组存放我们需要的class类
