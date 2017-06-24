@@ -32,6 +32,8 @@
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
+                  <!--关联某一个具体的商品 循环给每一个添加-->
+                  <cartcontrol :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -46,6 +48,7 @@
 <script type="text/ecmascript-6">
   import Bscroll from 'better-scroll'
   import Shopcart from '@/components/shopcart/shopcart.vue'
+  import Cartcontrol from '@/components/cartcontrol/cartcontrol.vue'
   export default {
       props: {
           seller: {
@@ -60,7 +63,7 @@
         }
       },
       components: {
-          Shopcart
+          Shopcart, Cartcontrol
       },
       created() {
         //        定义一个数组存放我们需要的class类
@@ -105,7 +108,8 @@
         })
         this.foodsScroll = new Bscroll(this.$refs.foodsWrapper, {
 //            时时检测滚动位置
-            probeType: 3
+            probeType: 3,
+            click: true
         })
         this.foodsScroll.on('scroll', (pos) => {
             this.scrollY = Math.abs(Math.round(pos.y))
