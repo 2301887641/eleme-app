@@ -17,11 +17,27 @@
         </div>
       </div>
     </div>
+    <div class="ball-container">
+      <transition name="drop">
+        <div v-for="ball in balls" v-show="ball.show" class="ball">
+          <div class="inner"></div>
+        </div>
+      </transition>
+    </div>
   </div>
 
 </template>
 <script type="text/ecmascript-6">
   export default {
+      data() {
+        return {
+          balls: [
+            {
+                show: false
+            }
+          ]
+        }
+      },
       props: {
           selectFoods: {
             type: Array,
@@ -63,7 +79,7 @@
 //        结帐描述
         payDesc() {
               if (this.totalPrice === 0) {
-                 return `￥{this.minPrice}元起送`
+                 return '￥' + this.minPrice + '元起送'
               } else if (this.totalPrice < this.minPrice) {
                   let diff = this.minPrice - this.totalPrice
                   return `还差￥${diff}元起送`
@@ -171,4 +187,18 @@
          &.enough
           background: #00b43c
           color: #fff
+   .ball-container
+    .ball
+      position: fixed
+      left: 32px
+      bottom: 22px
+      z-index: 200
+      &.drop-transition
+        transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
+        .inner
+          width: 16px
+          height: 16px
+          border-radius: 50%
+          background: rgb(0, 160, 220)
+          transition: all 0.4s linear
 </style>
