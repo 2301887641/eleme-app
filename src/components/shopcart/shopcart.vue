@@ -18,11 +18,14 @@
       </div>
     </div>
     <div class="ball-container">
-      <transition name="drop">
-        <div v-for="ball in balls" v-show="ball.show" class="ball">
-          <div class="inner"></div>
+      <div v-for="ball in balls">
+        <transition name="drop">
+            <div v-show="ball.show" class="ball">
+          <div class="inner inner-hook">
+          </div>
         </div>
-      </transition>
+        </transition>
+      </div>
     </div>
   </div>
 
@@ -31,11 +34,26 @@
   export default {
       data() {
         return {
+//            一个show代表一个小球 5个小球够用了
           balls: [
             {
-                show: false
+              show: false
+            },
+            {
+              show: false
+            },
+            {
+              show: false
+            },
+            {
+              show: false
+            },
+            {
+              show: false
             }
-          ]
+          ],
+//          将要发射的球放入这个数组
+          dropBalls: []
         }
       },
       props: {
@@ -58,6 +76,48 @@
             type: Number,
             default: 0
         }
+      },
+      transitions: {
+          drop: {
+              beforeEnter(el) {
+//              找show为true的小球
+                let count = this.balls.length
+                while (count--) {
+                    let ball = this.balls[count]
+                    if (ball.show) {
+                        let rect = ball.el.getBoundingClientRect()
+                        let x = rect.left - 32
+                        let y = -(window.innerHeight - rect.top - 22)
+                        el.style.display = ''
+                        el.style.webkitTransform = `translate3d(0,${y}px,0)`
+                        el.style.transform = `translate3d(0,${y}px,0)`
+                        let inner = el.getElementsByClassName('inner-hook')[0]
+                        inner.style.transform = `translate3d(${x}px,0,0)`
+                        inner.style.transform = `translate3d(${x}px,0,0)`
+                    }
+                }
+              },
+              enter(el) {
+//                  让浏览器重绘
+                /* eslint-disable no-unused-vars */
+              },
+              afterEnter(el) {
+
+              }
+          }
+      },
+      methods: {
+          drop(el) {
+            for (let i = 0; i < this.balls.length; i++) {
+                let ball = this.balls[i]
+                if (!ball.show) {
+                    ball.show = true
+                    ball.el = el
+                    this.dropBalls.push(ball)
+                    return
+                }
+            }
+          }
       },
       computed: {
 //          计算价格

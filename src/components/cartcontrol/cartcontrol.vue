@@ -34,7 +34,7 @@
                    this.food.count++
                }
               // 子组件通过 $emit触发父组件的方法 increment
-               this.$emit('increment', event.target)
+              this.$root.Eventbus.$emit('increment', event.target)
             },
             decreaseCart(event) {
                 if (!event._constructed) {

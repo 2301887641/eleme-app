@@ -20,6 +20,7 @@
 
 <script type="text/ecmascript-6">
   import header from '@/components/header/header'
+  import Vue from 'vue'
   // 错误状态码
   export default {
     components: {
@@ -29,6 +30,9 @@
       return {
         seller: {}
       }
+    },
+    beforeCreate() {
+        this.$root.Eventbus = new Vue()
     },
     created() {
       const _this = this

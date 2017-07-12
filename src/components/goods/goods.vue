@@ -41,7 +41,8 @@
         </li>
       </ul>
     </div>
-    <Shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></Shopcart>
+    <!--让父组件可以访问子组件的方法  v-ref:Shopcart -->
+    <Shopcart ref="shopEle" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></Shopcart>
   </div>
 </template>
 
@@ -65,8 +66,14 @@
       components: {
           Shopcart, Cartcontrol
       },
+      beforeCreate() {
+        let _this = this
+        this.$root.Eventbus.$on('increment', (target) => {
+          _this._drop(target)
+        })
+      },
       created() {
-        //        定义一个数组存放我们需要的class类
+         //        定义一个数组存放我们需要的class类
         this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
         const _this = this
         this.$http.get('/api/goods').then(function (response) {
@@ -103,6 +110,10 @@
           }
     },
     methods: {
+      _drop(target) {
+//          拿到子元素后 直接调用子元素的drop方法
+        this.$refs.shopEle.drop(target)
+      },
       selectMenu(index, event) {
         if (!event._constructed) {
             return
