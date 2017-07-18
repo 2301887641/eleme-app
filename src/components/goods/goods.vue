@@ -17,7 +17,8 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item border-1px">
+            <!--因为有父级所以也要拿到event-->
+            <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item border-1px">
               <div class="icon">
                 <img width="57" height="57" :src="food.icon">
               </div>
@@ -43,6 +44,7 @@
     </div>
     <!--让父组件可以访问子组件的方法  v-ref:Shopcart -->
     <Shopcart ref="shopEle" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></Shopcart>
+    <food :food="selectdFood" ref="food"></food>
   </div>
 </template>
 
@@ -50,6 +52,7 @@
   import Bscroll from 'better-scroll'
   import Shopcart from '@/components/shopcart/shopcart.vue'
   import Cartcontrol from '@/components/cartcontrol/cartcontrol.vue'
+  import food from '@/components/food/food.vue'
   export default {
       props: {
           seller: {
@@ -60,11 +63,12 @@
         return {
             goods: [],
             listHeight: [],
-            scrollY: 0
+            scrollY: 0,
+            selectdFood: {}
         }
       },
       components: {
-          Shopcart, Cartcontrol
+          Shopcart, Cartcontrol, food
       },
       beforeCreate() {
         let _this = this
@@ -110,6 +114,14 @@
           }
     },
     methods: {
+      selectFood(food, event) {
+        if (!event._constructed) {
+          return
+        }
+        this.selectedFood = food
+//        父类调用子类的方法
+        this.$refs.food.show()
+      },
       _drop(target) {
 //          拿到子元素后 直接调用子元素的drop方法
         this.$refs.shopEle.drop(target)
