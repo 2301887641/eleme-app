@@ -44,7 +44,7 @@
     </div>
     <!--让父组件可以访问子组件的方法  v-ref:Shopcart -->
     <Shopcart ref="shopEle" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></Shopcart>
-    <food :food="selectdFood" ref="food"></food>
+    <food :food="selectedFood" ref="food"></food>
   </div>
 </template>
 
@@ -64,7 +64,7 @@
             goods: [],
             listHeight: [],
             scrollY: 0,
-            selectdFood: {}
+            selectedFood: {}
         }
       },
       components: {
